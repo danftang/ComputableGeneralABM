@@ -1,23 +1,24 @@
-#ifndef ECONOMY_H
-#define ECONOMY_H
+#ifndef ECONOMY_HPP
+#define ECONOMY_HPP
 
 #include <eigen3/Eigen/Dense>
-#include <vector>
+#include <list>
 #include <random>
 
 #include "Household.hpp"
 #include "Firm.hpp"
+#include "LabourMarket.hpp"
 
 class Economy {
 public:
 	Economy();
 
-	std::vector<Household>		households;	// Households
-	std::vector<Firm>			firms;		// Firms
-	Eigen::Vector2d				prices; 	// prices of goods
-	Eigen::Vector2d				omega;		// prices of factors
+	void step();
+	void print();
 
-
+	std::list<Household>		households;	// Households
+	std::list<Firm>				firms;		// Firms
+	LabourMarket				labourMarket;	// Market for labour and factors
 };
 
 #endif

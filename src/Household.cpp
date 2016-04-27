@@ -1,23 +1,25 @@
-
+#include <iostream>
 #include "Household.hpp"
+#include "Economy.hpp"
 
 void Household::step() {
-	int i;
-
 	consume();
-	economy.labourMarket.offer(endowments);
+	root.labourMarket.offer(endowments);
 }
 
 void Household::consume() {
-	i=0;
+	int i=0;
 	double e = earnings();
-	for(Firm f : economy.firms) {
-		f.order(beta[i]*e/f.price);
+	double consumption;
+
+	for(Firm &f : root.firms) {
+		consumption = beta[i]*e/f.price;
+		f.order(consumption);
+//		std::cout << "Consumption = " << consumption << std::endl;
 		++i;
 	}
-
 }
 
 double Household::earnings() {
-	return(economy.labourMarket.prices * endowments);
+	return(root.labourMarket.prices * endowments);
 }

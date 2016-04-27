@@ -6,41 +6,40 @@
 
 class Firm : public Agent {
 public:
-	Firm(Economy &e) : Agent(e) {};
+	Firm(Economy &e);
+	Firm(const Firm &other);
 
-//	double 	production();
 	double	order(double amnt);
 	void 	step();
+	void 	optimiseFactorMix();
+
+	double 		price;  		// current sale price per unit output
+	Eigen::Vector3d inputs;		// raw materials per unit output (inc Value added)
+	Eigen::Vector2d alpha;		// Cobb-Douglas coefficients
+	double  	production;		// current production quantity per unit time 
 
 protected:
-	double 		price;  		// current sale price of output
-	double  	production;		// current production quantity per unit time 
 	double 		sales;			// sales quantity per unit time
-	double 		orders;			// sales orders this timestep
-	Eigen::Vector3d inputs;		// raw materials per unit output (inc Value added)
 	Eigen::Vector2d factors;    // factors per unit output;
 };
 
 /*****
 ******/
-inline Firm::Firm() {
-	price = nextDouble() + 1.0;
+inline Firm::Firm(Economy &e) : Agent(e) {
+	price = randNextPrice();
+	production = randNextDouble()*100;
+	sales = 0;
+}
+
+inline Firm::Firm(const Firm &other) : Firm(other.root) {
+
 }
 
 /*****
 ******/
 inline double Firm::order(double amnt) {
-	orders += amnt;
+	sales += amnt;
 	return(amnt); // return amount supplied
-}
-
-/*****
-******/
-inline void step() {
-	sales = orders;
-	orders = 0.0;
-	production = production + 0.5*(sales - production);
-	price = 
 }
 
 #endif
