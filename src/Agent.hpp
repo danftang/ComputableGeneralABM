@@ -13,14 +13,16 @@ public:
 
 	void buy(Market &m, double amnt) {m.bid(amnt); cost += amnt*m.price;}
 
+	Economy &root;
+	double cost;
+
 	static double randNextDouble() {return(realDist(randGen));}
 	static double randNextPrice() {return(priceDist(randGen));}
 
-	Economy &root;
-	double cost;
-	static std::default_random_engine				randGen;
+    static std::default_random_engine				randGen;
 	static std::uniform_real_distribution<double> 	realDist;
 	static std::uniform_real_distribution<double>	priceDist;
+
 };
 
 #endif

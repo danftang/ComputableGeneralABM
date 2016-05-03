@@ -7,14 +7,21 @@
 
 class Firm : public Agent, public Market {
 public:
+    struct Config {
+        std::vector<double>     alpha;	    // Cobb-Douglas coefficients for factors
+        std::vector<double>     inputs;     // raw materials per unit output (inc Value added)
+    };
+
+public:
 	Firm(Economy &e);
 	Firm(const Firm &other);
 
 	void 	step();
 	void 	optimiseFactorMix();
-	std::vector<double>     inputs;// raw materials per unit output (inc Value added)
-	std::vector<double>     alpha;	    // Cobb-Douglas coefficients for factors
-	double factors[2];      // factors per unit output;
+//	std::vector<double>     inputs;// raw materials per unit output (inc Value added)
+//	std::vector<double>     alpha;	    // Cobb-Douglas coefficients for factors
+    Config  conf;
+	double  factors[2];      // factors per unit output;
 };
 
 /*****

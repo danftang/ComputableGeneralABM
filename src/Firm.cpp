@@ -9,8 +9,8 @@ void Firm::step() {
 	optimiseFactorMix();
 	cost = 0.0;
 	unsigned int m;
-	for(m=0; m<inputs.size()-1; ++m) {
-        buy(root.firms[m], offers*inputs[m]);
+	for(m=0; m<conf.inputs.size()-1; ++m) {
+        buy(root.firms[m], offers*conf.inputs[m]);
 	}
 	buy(root.labourMarket.labour, offers*factors[0]);
 	buy(root.labourMarket.capital, offers*factors[1]);
@@ -18,6 +18,6 @@ void Firm::step() {
 }
 
 void Firm::optimiseFactorMix() {
-	factors[0] = inputs.back()*alpha[0]*pow(root.labourMarket.capital.price, alpha[1]);
-	factors[1] = inputs.back()*alpha[1]*pow(1.0/root.labourMarket.capital.price, alpha[0]);
+	factors[0] = conf.inputs.back()*conf.alpha[0]*pow(root.labourMarket.capital.price, conf.alpha[1]);
+	factors[1] = conf.inputs.back()*conf.alpha[1]*pow(1.0/root.labourMarket.capital.price, conf.alpha[0]);
 }

@@ -12,13 +12,20 @@
 
 class Economy {
 public:
-	Economy();
+    struct Config {
+        std::vector<Firm::Config>       firmConfigs;
+        std::vector<Household::Config>  hhConfigs;
+    };
+
+public:
+	Economy(const std::vector<Firm::Config> &fConfs, const std::vector<Household::Config> &hhConfs);//int N_HOUSEHOLDS,int N_FIRMS);
+    Economy(const Config &conf);
 
 	void step();
 	void print();
 
-    const int       N_HOUSEHOLDS = 2;
-    const int       N_FIRMS = 2;
+//    const int       N_HOUSEHOLDS = 2;
+  //  const int       N_FIRMS = 2;
 
 	AgentSet<Household>		households;	    // Households
 	AgentSet<Firm>			firms;		    // Firms

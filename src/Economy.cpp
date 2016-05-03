@@ -1,12 +1,11 @@
 #include <iostream>
 #include "Economy.hpp"
 
-Economy::Economy() :
-	households(N_HOUSEHOLDS, *this),
-	firms(N_FIRMS, *this),
+Economy::Economy(const Config &conf) :
+	households(conf.hhConfigs, *this),
+	firms(conf.firmConfigs, *this),
     labourMarket(*this)
-{
-}
+{}
 
 void Economy::step() {
 	households.step();
