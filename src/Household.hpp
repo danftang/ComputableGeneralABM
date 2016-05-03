@@ -1,7 +1,7 @@
 #ifndef HOUSEHOLD_H
 #define HOUSEHOLD_H
 
-#include <eigen3/Eigen/Dense>
+//#include <eigen3/Eigen/Dense>
 #include "Agent.hpp"
 
 class Household : public Agent {
@@ -11,8 +11,8 @@ public:
 
 	void step();
 
-	Eigen::Vector2d beta; 		// utility coefficients u = sum c_i^beta_i
-	Eigen::Vector2d endowments;	// endowment of factors (per time step)
+	std::vector<double> beta; 		// utility coefficients for consumption u = sum c_i^beta_i
+	std::vector<double> endowments;	// endowment of factors (per time step)
 
 protected:
 	void consume();

@@ -4,22 +4,20 @@
 
 void Household::step() {
 	consume();
-	root.labourMarket.offer(endowments);
+	root.labourMarket.labour.offer(endowments[0]);
+	root.labourMarket.capital.offer(endowments[1]);
 }
 
 void Household::consume() {
 	int i=0;
 	double e = earnings();
-	double consumption;
 
 	for(Firm &f : root.firms) {
-		consumption = beta[i]*e/f.price;
-		f.order(consumption);
-//		std::cout << "Consumption = " << consumption << std::endl;
+		buy(f, beta[i]*e/f.price);
 		++i;
 	}
 }
 
 double Household::earnings() {
-	return(root.labourMarket.prices * endowments);
+	return(root.labourMarket.labour.price * endowments[0] + root.labourMarket.capital.price * endowments[1]);
 }
